@@ -1,0 +1,288 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ---------------------------------------------------------------------------
+   Fonts — bundled, self-hosted variable woff2. No CDN imports.
+   Display: Fraunces (high-contrast serif, elegant editorial voice)
+   Body:    General Sans (clean humanist sans, quiet counterpoint)
+   Mono:    JetBrains Mono (captions / metadata only)
+--------------------------------------------------------------------------- */
+@font-face {
+  font-family: "Fraunces";
+  src: url("/assets/fonts/Fraunces.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "General Sans";
+  src: url("/assets/fonts/GeneralSans.woff2") format("woff2");
+  font-weight: 200 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("/assets/fonts/JetBrainsMono.woff2") format("woff2");
+  font-weight: 100 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@layer base {
+  :root {
+    --font-display: "Fraunces", serif;
+    --font-body: "General Sans", sans-serif;
+    --font-mono: "JetBrains Mono", monospace;
+    --radius: 0.875rem;
+
+    /* --- Blush & Bordeaux (light / primary) ----------------------------- */
+    --background: 0.965 0.012 38; /* warm blush-cream canvas */
+    --foreground: 0.255 0.045 350; /* deep plum ink */
+    --card: 0.995 0.006 45; /* near-white cream card */
+    --card-foreground: 0.255 0.045 350;
+    --popover: 0.995 0.006 45;
+    --popover-foreground: 0.255 0.045 350;
+
+    --primary: 0.4 0.125 355; /* plum-bordeaux */
+    --primary-foreground: 0.975 0.008 45;
+
+    --secondary: 0.925 0.024 30; /* soft rose-tinted surface */
+    --secondary-foreground: 0.33 0.055 350;
+    --muted: 0.93 0.018 35;
+    --muted-foreground: 0.5 0.035 350;
+
+    --accent: 0.685 0.098 52; /* rose-gold */
+    --accent-foreground: 0.245 0.045 45;
+
+    --destructive: 0.53 0.19 25;
+    --destructive-foreground: 0.975 0.008 25;
+
+    --success: 0.58 0.105 155;
+    --warning: 0.71 0.125 78;
+
+    --border: 0.885 0.022 35;
+    --input: 0.885 0.022 35;
+    --ring: 0.4 0.125 355;
+
+    --chart-1: 0.55 0.14 355;
+    --chart-2: 0.685 0.098 52;
+    --chart-3: 0.62 0.09 15;
+    --chart-4: 0.72 0.07 320;
+    --chart-5: 0.58 0.08 250;
+
+    --sidebar: 0.985 0.01 40;
+    --sidebar-foreground: 0.255 0.045 350;
+    --sidebar-primary: 0.4 0.125 355;
+    --sidebar-primary-foreground: 0.975 0.008 45;
+    --sidebar-accent: 0.925 0.024 30;
+    --sidebar-accent-foreground: 0.33 0.055 350;
+    --sidebar-border: 0.885 0.022 35;
+    --sidebar-ring: 0.4 0.125 355;
+
+    /* --- Extended tokens ------------------------------------------------- */
+    --gradient-primary: linear-gradient(
+      135deg,
+      oklch(0.44 0.135 358) 0%,
+      oklch(0.36 0.115 345) 100%
+    );
+    --gradient-subtle: linear-gradient(
+      180deg,
+      oklch(0.975 0.014 42) 0%,
+      oklch(0.945 0.02 32) 100%
+    );
+    --gradient-rose-gold: linear-gradient(
+      100deg,
+      oklch(0.72 0.105 58) 0%,
+      oklch(0.66 0.095 30) 55%,
+      oklch(0.6 0.105 350) 100%
+    );
+
+    --shadow-subtle: 0 1px 2px oklch(0.3 0.05 350 / 0.05), 0 4px 12px
+      oklch(0.3 0.05 350 / 0.05);
+    --shadow-elevated: 0 2px 6px oklch(0.3 0.05 350 / 0.06), 0 14px 34px -12px
+      oklch(0.3 0.05 350 / 0.16);
+    --shadow-float: 0 18px 48px -18px oklch(0.3 0.05 350 / 0.28);
+
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .dark {
+    /* --- Blush & Bordeaux (dark / candlelit) ---------------------------- */
+    --background: 0.165 0.02 350; /* deep plum-charcoal */
+    --foreground: 0.935 0.014 45;
+    --card: 0.205 0.024 350;
+    --card-foreground: 0.935 0.014 45;
+    --popover: 0.205 0.024 350;
+    --popover-foreground: 0.935 0.014 45;
+
+    --primary: 0.72 0.115 12; /* lifted rose-bordeaux */
+    --primary-foreground: 0.175 0.025 350;
+
+    --secondary: 0.255 0.028 350;
+    --secondary-foreground: 0.885 0.018 45;
+    --muted: 0.255 0.028 350;
+    --muted-foreground: 0.665 0.028 40;
+
+    --accent: 0.745 0.098 60; /* warm rose-gold */
+    --accent-foreground: 0.175 0.025 45;
+
+    --destructive: 0.62 0.17 25;
+    --destructive-foreground: 0.175 0.025 25;
+
+    --success: 0.68 0.12 155;
+    --warning: 0.77 0.13 80;
+
+    --border: 0.305 0.026 350;
+    --input: 0.305 0.026 350;
+    --ring: 0.72 0.115 12;
+
+    --chart-1: 0.72 0.115 12;
+    --chart-2: 0.745 0.098 60;
+    --chart-3: 0.68 0.1 335;
+    --chart-4: 0.66 0.09 290;
+    --chart-5: 0.7 0.09 220;
+
+    --sidebar: 0.195 0.022 350;
+    --sidebar-foreground: 0.935 0.014 45;
+    --sidebar-primary: 0.72 0.115 12;
+    --sidebar-primary-foreground: 0.175 0.025 350;
+    --sidebar-accent: 0.255 0.028 350;
+    --sidebar-accent-foreground: 0.885 0.018 45;
+    --sidebar-border: 0.305 0.026 350;
+    --sidebar-ring: 0.72 0.115 12;
+
+    --gradient-primary: linear-gradient(
+      135deg,
+      oklch(0.74 0.115 14) 0%,
+      oklch(0.66 0.105 350) 100%
+    );
+    --gradient-subtle: linear-gradient(
+      180deg,
+      oklch(0.195 0.022 350) 0%,
+      oklch(0.165 0.02 350) 100%
+    );
+    --gradient-rose-gold: linear-gradient(
+      100deg,
+      oklch(0.78 0.1 62) 0%,
+      oklch(0.72 0.095 32) 55%,
+      oklch(0.68 0.105 352) 100%
+    );
+
+    --shadow-subtle: 0 1px 2px oklch(0.08 0.02 350 / 0.35), 0 4px 12px
+      oklch(0.08 0.02 350 / 0.3);
+    --shadow-elevated: 0 2px 6px oklch(0.08 0.02 350 / 0.4), 0 14px 34px -12px
+      oklch(0.08 0.02 350 / 0.55);
+    --shadow-float: 0 18px 48px -18px oklch(0.05 0.02 350 / 0.65);
+  }
+
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-body antialiased;
+  }
+  ::selection {
+    background-color: oklch(var(--accent) / 0.35);
+    color: oklch(var(--foreground));
+  }
+}
+
+@layer utilities {
+  .transition-smooth {
+    transition: var(--transition-smooth);
+  }
+
+  /* Gradient surfaces */
+  .bg-gradient-primary {
+    background-image: var(--gradient-primary);
+  }
+  .bg-gradient-subtle {
+    background-image: var(--gradient-subtle);
+  }
+  .bg-gradient-rose-gold {
+    background-image: var(--gradient-rose-gold);
+  }
+
+  /* Gradient text accent — one word per heading, used sparingly */
+  .text-gradient-rose-gold {
+    background-image: var(--gradient-rose-gold);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* Shadow hierarchy */
+  .shadow-subtle {
+    box-shadow: var(--shadow-subtle);
+  }
+  .shadow-elevated {
+    box-shadow: var(--shadow-elevated);
+  }
+  .shadow-float {
+    box-shadow: var(--shadow-float);
+  }
+
+  /* Editorial eyebrow label */
+  .label-eyebrow {
+    @apply font-body text-xs font-semibold uppercase tracking-[0.28em];
+  }
+
+  /* Frosted-glass floating control (music player, nav) */
+  .glass-panel {
+    background-color: oklch(var(--card) / 0.72);
+    backdrop-filter: blur(16px) saturate(1.4);
+    -webkit-backdrop-filter: blur(16px) saturate(1.4);
+    border: 1px solid oklch(var(--border) / 0.7);
+  }
+
+  /* Arched photo frame — signature silhouette */
+  .arch-frame {
+    border-radius: 9999px 9999px var(--radius) var(--radius);
+    overflow: hidden;
+  }
+
+  /* Polaroid photo treatment */
+  .polaroid {
+    background-color: oklch(var(--card));
+    padding: 0.75rem 0.75rem 2.75rem;
+    box-shadow: var(--shadow-elevated);
+    border-radius: 4px;
+  }
+
+  /* Fine paper grain overlay for texture */
+  .grain-overlay::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .animation-delay-100 {
+    animation-delay: 100ms;
+  }
+  .animation-delay-200 {
+    animation-delay: 200ms;
+  }
+  .animation-delay-300 {
+    animation-delay: 300ms;
+  }
+  .animation-delay-500 {
+    animation-delay: 500ms;
+  }
+  .animation-delay-700 {
+    animation-delay: 700ms;
+  }
+  .animation-delay-1000 {
+    animation-delay: 1000ms;
+  }
+}

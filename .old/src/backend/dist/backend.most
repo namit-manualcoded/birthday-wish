@@ -1,0 +1,126 @@
+// Version: 4.0.0
+type AccessControlState__201339279 =
+  {
+    var adminAssigned : Bool;
+    userRoles : Map__230067015<Principal, UserRole__91647283>
+  };
+type CropAdjust__382194234 =
+  {offsetX : Float; offsetY : Float; rotation : Float; zoom : Float};
+type CropAdjust__48729273 =
+  {offsetX : Float; offsetY : Float; rotation : Float; zoom : Float};
+type Data__44217153<K, V> = {var count : Nat__227979830; kvs : [var ?(K, V)]};
+type ExternalBlob__220559234 = Blob;
+type Greeting__296606606 =
+  {headline : Text; heroPhoto : ?StoredFile__1027029466; subtext : Text};
+type Greeting__76638942 =
+  {
+    headline : Text;
+    heroCrop : ?CropAdjust__48729273;
+    heroPhoto : ?StoredFile__665226134;
+    subtext : Text
+  };
+type Greeting__894033242 =
+  {
+    headline : Text;
+    heroCrop : ?CropAdjust__382194234;
+    heroPhoto : ?StoredFile__705539368;
+    subtext : Text
+  };
+type Internal__283199666<K, V> =
+  {children : [var ?Node__204828119<K, V>]; data : Data__44217153<K, V>};
+type Leaf__598469445<K, V> = {data : Data__44217153<K, V>};
+type Map__230067015<K, V> = Map__405889023<K, V>;
+type Map__405889023<K, V> = Map__603270868<K, V>;
+type Map__603270868<K, V> =
+  {var root : Node__204828119<K, V>; var size : Nat__227979830};
+type MessageId__28857911 = MessageId__291319400;
+type MessageId__291319400 = Nat;
+type MessageId__299509938 = Nat;
+type MessageId__345815942 = Nat;
+type Message__1038698319 =
+  {
+    crop : ?CropAdjust__382194234;
+    id : MessageId__299509938;
+    photo : ?StoredFile__705539368;
+    position : Nat;
+    text : Text
+  };
+type Message__403993580 =
+  {
+    crop : ?CropAdjust__48729273;
+    id : MessageId__28857911;
+    photo : ?StoredFile__665226134;
+    position : Nat;
+    text : Text
+  };
+type Message__702227878 =
+  {
+    id : MessageId__345815942;
+    photo : ?StoredFile__1027029466;
+    position : Nat;
+    text : Text
+  };
+type Nat__227979830 = Nat__920180692;
+type Nat__920180692 = Nat;
+type NewActor__712516871 =
+  {
+    accessControlState : AccessControlState__201339279;
+    greeting : {var value : Greeting__894033242};
+    messages : Map__230067015<MessageId__299509938, Message__1038698319>;
+    nextMessageId : {var value : Nat};
+    song : {var value : ?StoredFile__705539368};
+    songUrl : {var value : ?Text}
+  };
+type NewActor__769816496 =
+  {
+    accessControlState : AccessControlState__201339279;
+    greeting : {var value : Greeting__296606606};
+    messages : Map__230067015<MessageId__345815942, Message__702227878>;
+    nextMessageId : {var value : Nat};
+    song : {var value : ?StoredFile__1027029466}
+  };
+type Node__204828119<K, V> =
+  {#internal : Internal__283199666<K, V>; #leaf : Leaf__598469445<K, V>};
+type OldActor__511848114 =
+  {
+    accessControlState : AccessControlState__201339279;
+    greeting : {var value : OldGreeting__111389024};
+    messages : Map__230067015<MessageId__299509938, OldMessage__695177550>;
+    nextMessageId : {var value : Nat};
+    song : {var value : ?StoredFile__705539368}
+  };
+type OldActor__512397517 = {};
+type OldGreeting__111389024 =
+  {headline : Text; heroPhoto : ?StoredFile__705539368; subtext : Text};
+type OldMessage__695177550 =
+  {
+    id : MessageId__299509938;
+    photo : ?StoredFile__705539368;
+    position : Nat;
+    text : Text
+  };
+type StoredFile__1027029466 = Blob;
+type StoredFile__551185736 = ExternalBlob__220559234;
+type StoredFile__665226134 = StoredFile__551185736;
+type StoredFile__705539368 = Blob;
+type UserRole__91647283 = {#admin; #guest; #user};
+{
+  "00000000_000000" : OldActor__512397517 -> NewActor__769816496;
+  "20261001_000000" : (old : OldActor__511848114) -> NewActor__712516871
+}
+actor  {
+  stable accessControlState :
+    {
+      var adminAssigned : Bool;
+      userRoles : Map__230067015<Principal, UserRole__91647283>
+    };
+  stable greeting : {var value : Greeting__76638942};
+  stable messages :
+    {
+      var root : Node__204828119<MessageId__28857911, Message__403993580>;
+      var size : Nat__227979830
+    };
+  stable nextMessageId : {var value : Nat};
+  stable song : {var value : ?StoredFile__665226134};
+  stable songUrl : {var value : ?Text}
+};

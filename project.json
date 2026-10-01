@@ -1,0 +1,19 @@
+{
+  "overview": "A romantic birthday wish website with a full-screen hero photo, message sections paired with photos, a looping background song, and an owner panel for editing everything.",
+  "features": [
+    "Full-screen hero photo with an elegant arch frame",
+    "Message sections each paired with a photo",
+    "Crop and adjust uploaded photos with zoom, reposition, and rotate",
+    "Background song autoplays and loops continuously",
+    "Owner panel to upload photos, edit the greeting and messages, and set the song"
+  ],
+  "category": "birthday-wish-website",
+  "tags": [
+    "romantic",
+    "birthday",
+    "photo-gallery",
+    "music",
+    "personal"
+  ],
+  "last_updated": "2026-10-01T06:42:12.900Z"
+}

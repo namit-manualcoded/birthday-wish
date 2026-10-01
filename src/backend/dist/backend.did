@@ -1,0 +1,165 @@
+type _ImmutableObjectStorageRefillResult = 
+ record {
+   success: opt bool;
+   topped_up_amount: opt nat;
+ };
+type _ImmutableObjectStorageRefillInformation = record {
+                                                  proposed_top_up_amount:
+                                                   opt nat;};
+type _ImmutableObjectStorageCreateCertificateResult = 
+ record {
+   blob_hash: text;
+   method: text;
+ };
+type Value = 
+ variant {
+   "bool": bool;
+   float: float64;
+   "int": int;
+   "nat": nat;
+   "null";
+   "text": text;
+ };
+type UserRole = 
+ variant {
+   admin;
+   guest;
+   user;
+ };
+type StoredFile = blob;
+type SongSourceKind = 
+ variant {
+   default;
+   upload;
+   url;
+ };
+type SongSource = 
+ record {
+   file: opt StoredFile;
+   kind: SongSourceKind;
+   url: opt text;
+ };
+type SiteContent = 
+ record {
+   greeting: Greeting;
+   messages: vec Message;
+   song: opt StoredFile;
+   songSource: SongSource;
+ };
+type Result__1 = 
+ variant {
+   err: Error;
+   ok;
+ };
+type Result = 
+ record {
+   hasMore: bool;
+   rows: vec vec Cell;
+ };
+type MessageInput = 
+ record {
+   crop: opt CropAdjust;
+   photo: opt StoredFile;
+   position: nat;
+   "text": text;
+ };
+type MessageId = nat;
+type Message = 
+ record {
+   crop: opt CropAdjust;
+   id: MessageId;
+   photo: opt StoredFile;
+   position: nat;
+   "text": text;
+ };
+type GreetingInput = 
+ record {
+   headline: text;
+   subtext: text;
+ };
+type Greeting = 
+ record {
+   headline: text;
+   heroCrop: opt CropAdjust;
+   heroPhoto: opt StoredFile;
+   subtext: text;
+ };
+type Error = 
+ variant {
+   AmbiguousAttribute: record {
+                         field: text;
+                         sources: vec text;
+                       };
+   FrontendOriginMismatch: record {
+                             expected: vec text;
+                             got: text;
+                           };
+   FrontendOriginsNotConfigured;
+   MalformedCandid;
+   MissingField: text;
+   MixedSsoSources: record {
+                      otherKeys: vec text;
+                      ssoKeys: vec text;
+                    };
+   NoAttributes;
+   Stale: record {ageNs: nat;};
+   UnknownNonce;
+   UntrustedSsoSource: record {domain: text;};
+ };
+type CropAdjust = 
+ record {
+   offsetX: float64;
+   offsetY: float64;
+   rotation: float64;
+   zoom: float64;
+ };
+type Cell = 
+ record {
+   name: text;
+   value: Value;
+ };
+service : {
+  _immutableObjectStorageBlobsAreLive: (hashes: vec blob) -> (vec bool) query;
+  _immutableObjectStorageBlobsToDelete: () -> (vec blob) query;
+  _immutableObjectStorageConfirmBlobDeletion: (blobs: vec blob) -> ();
+  _immutableObjectStorageCreateCertificate: (blobHash: text) ->
+   (_ImmutableObjectStorageCreateCertificateResult);
+  _immutableObjectStorageRefillCashier: (refillInformation:
+   opt _ImmutableObjectStorageRefillInformation) ->
+   (_ImmutableObjectStorageRefillResult);
+  _immutableObjectStorageUpdateGatewayPrincipals: () -> ();
+  _initialize_access_control: () -> ();
+  _internet_identity_sign_in_finish: () -> (Result__1);
+  _internet_identity_sign_in_start: () -> (blob);
+  /// Owner-only: add a message entry.
+  addMessage: (input: MessageInput) -> (MessageId);
+  assignCallerUserRole: (user: principal, role: UserRole) -> ();
+  /// Owner-only: clear the external audio URL, reverting to the uploaded song.
+  clearSongUrl: () -> (SongSource);
+  /// Owner-only: delete a message entry.
+  deleteMessage: (id: MessageId) -> (bool);
+  execute: (qJson: text) -> (Result) query;
+  /// Returns static Markdown documentation for this backend's public API.
+  getApiDoc: () -> (text) query;
+  getCallerUserRole: () -> (UserRole) query;
+  /// Public read of all site content.
+  getSiteContent: () -> (SiteContent) query;
+  /// Public read of the active background song source.
+  getSongSource: () -> (SongSource) query;
+  isCallerAdmin: () -> (bool) query;
+  schema: () -> (text) query;
+  /// Owner-only: save crop/adjust parameters for the hero photo.
+  setHeroCrop: (crop: CropAdjust) -> (bool);
+  /// Owner-only: set or replace the hero photo.
+  setHeroPhoto: (photo: StoredFile) -> (Greeting);
+  /// Owner-only: save crop/adjust parameters for a message's photo.
+  setMessageCrop: (id: MessageId, crop: CropAdjust) -> (bool);
+  /// Owner-only: set or replace the background song.
+  setSong: (file: StoredFile) -> (StoredFile);
+  /// Owner-only: set the external audio URL for the background song.
+  setSongUrl: (url: text) -> (SongSource);
+  /// Owner-only: update the greeting headline and subtext.
+  updateGreeting: (input: GreetingInput) -> (Greeting);
+  /// Owner-only: update a message entry.
+  updateMessage: (id: MessageId, input: MessageInput) -> (bool);
+}
